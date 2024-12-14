@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Line - API's</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(90deg, #007bff, #3b82f6);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header img {
+            width: 50px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* Content Section */
+        .content {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #1e293b, #2d3748);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent 70%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #60a5fa;
+        }
+
+        .card p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: #3b82f6;
+            margin-bottom: 20px;
+        }
+
+        /* Feature Button */
+        .feature-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #3b82f6, #9333ea);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 320px;
+            transition: background 0.4s ease, transform 0.3s ease;
+        }
+
+        .feature-btn:hover {
+            background: linear-gradient(90deg, #9333ea, #3b82f6);
+            transform: scale(1.05);
+        }
+
+        .feature-btn svg {
+            margin-right: 10px;
+        }
+
+        /* Gateway Info */
+        .gateway-info {
+            text-align: center;
+            padding: 30px;
+            background: #1e293b;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .gateway-info h2 {
+            color: #60a5fa;
+        }
+
+        .gateway-info p {
+            color: #cbd5e1;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #111827;
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Line API</h1>
+        <img src="image/3f0063776cc0fe26249368526bb9e107.jpg" alt="API Logo">
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- About API Section -->
+        <div class="card">
+            <div class="card-icon">⚙️</div>
+            <h2>Tentang Rest Api</h2>
+            <p>API ini dibuat untuk mempermudah Anda dalam mengakses berbagai layanan tanpa batasan. Dengan Rest Api ini, Anda bisa menikmati fitur yang lengkap, mudah diakses, dan bebas biaya!</p>
+        </div>
+
+        <!-- Battery Status Section -->
+        <div class="card">
+            <div class="card-icon">🔋</div>
+            <h2>Battery Status</h2>
+            <p id="battery-status">Memuat informasi baterai...</p>
+        </div>
+
+        <!-- IP Address Section -->
+        <div class="card">
+            <div class="card-icon">🌐</div>
+            <h2>IP Address Anda</h2>
+            <p id="ip-address">Memuat IP address...</p>
+        </div>
+
+        <!-- Feature Button -->
+        <a href="-" class="feature-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#fff">
+                <path d="M0 0h24v24H0z" fill="none"/><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            Dokumentasi
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Line API's. All rights reserved. Powered by Line.</p>
+    </div>
+
+    <script>
+        // Get battery status
+        navigator.getBattery().then(function(battery) {
+            const batteryStatus = document.getElementById('battery-status');
+            batteryStatus.textContent = `Baterai: ${Math.round(battery.level * 100)}%`;
+        });
+
+        // Get IP address
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-address').textContent = `IP Address: ${data.ip}`;
+            });
+                        
+    </script>
+
+</body>
+</html>
